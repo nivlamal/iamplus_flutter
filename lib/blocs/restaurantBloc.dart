@@ -31,19 +31,18 @@ class RestaurantBloc implements Bloc {
     final lon = _locationData.longitude;
     
     //zomato url with lat lon params
-    // var url = "https://developers.zomato.com/api/v2.1/geocode?"
-    //   + "lat=" + lat.toString()
-    //   + "&lon=" + lon.toString();
-    //   print(url);
-    // //send http get request to zomato
-    // final response = await http.get(url, headers: {"user-key": userKey});
-    // if(response.statusCode == 200) {
-    //   _restaurants.clear();
-    //   final jsonBody = jsonDecode(response.body);
-    //   jsonBody["nearby_restaurants"].forEach((val) => 
-    //     _restaurants.add(Restaurant.fromJson(val["restaurant"]))
-    //   );
-    // }
+    var url = "https://developers.zomato.com/api/v2.1/geocode?"
+      + "lat=" + lat.toString()
+      + "&lon=" + lon.toString();
+    //send http get request to zomato
+    final response = await http.get(url, headers: {"user-key": userKey});
+    if(response.statusCode == 200) {
+      _restaurants.clear();
+      final jsonBody = jsonDecode(response.body);
+      jsonBody["nearby_restaurants"].forEach((val) => 
+        _restaurants.add(Restaurant.fromJson(val["restaurant"]))
+      );
+    }
     _restaurantListController.sink.add(_restaurants);
   }
 

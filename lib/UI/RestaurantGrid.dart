@@ -5,16 +5,16 @@ import 'package:iamplus_flutter/UI/RestaurantCard.dart';
 import 'package:iamplus_flutter/data/restaurant.dart';
 
 class RestaurantGrid extends StatelessWidget {
+  const RestaurantGrid(this._restaurants, this._onPressed);
   final List<Restaurant> _restaurants;
   final Function(Restaurant) _onPressed;
-  RestaurantGrid(this._restaurants, this._onPressed);
 
   @override
   Widget build(BuildContext context) {
-    const topMargin = 142;
-    const bottomMargin = 26;
-    const leftMargin = 30;
-    const rowHeight = 198 + 25;
+    const double topMargin = 142;
+    const double bottomMargin = 26;
+    const double leftMargin = 30;
+    const double rowHeight = 198.0 + 25;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         var height = constraints.maxHeight - topMargin - bottomMargin;
@@ -31,17 +31,17 @@ class RestaurantGrid extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: (_restaurants.length / noOfRows).ceil(),
-      itemBuilder: (context, index) {
+      itemBuilder: (BuildContext context, int index) {
         return Column(
           children: _restaurants.sublist(
             noOfRows * index, 
-            min(noOfRows * index + noOfRows, _restaurants.length)).map((restaurant) => 
+            min(noOfRows * index + noOfRows, _restaurants.length)).map((Restaurant restaurant) => 
             GestureDetector(
               onTap: () {
                 _onPressed(restaurant);
               },
               child: Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   bottom: 25,
                   right: 25
                 ),

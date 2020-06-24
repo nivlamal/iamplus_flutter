@@ -6,23 +6,21 @@ import 'package:iamplus_flutter/blocs/restaurantBloc.dart';
 import 'package:iamplus_flutter/data/restaurant.dart';
 
 class Home extends StatelessWidget {
-  Home({
-    Key key,
-  }) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
-    final bloc = RestaurantBloc();
+    final RestaurantBloc bloc = RestaurantBloc();
     return BlocProvider<RestaurantBloc>(
       bloc: bloc,
       child: StreamBuilder<List<Restaurant>>(
         stream: bloc.restaurantListStream,
-        builder: (context, snapshot) {
-          final restaurants = snapshot.data??[];
-          final selectRestaurant = (Restaurant restaurant) {
+        builder: (BuildContext context, AsyncSnapshot<List<Restaurant>> snapshot) {
+          final List<Restaurant> restaurants = snapshot.data ?? [];
+          final Function(Restaurant) selectRestaurant = (Restaurant restaurant) {
             bloc.selectRestaurant(restaurant);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Details()),
+              MaterialPageRoute<void>(builder: (BuildContext context) => Details()),
             );
           };
           return _buildUI(restaurants, selectRestaurant);
@@ -31,43 +29,38 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildUI(List<Restaurant> restuarants, Function(Restaurant) selectRestaurant) {
+  Widget _buildUI(
+      List<Restaurant> restuarants, Function(Restaurant) selectRestaurant) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
           Transform.translate(
-            offset: Offset(0.5, 0.0),
+            offset: const Offset(0.5, 0.0),
             child: Container(
               width: 379.0,
               height: 812.0,
-              decoration: BoxDecoration(
-                color: const Color(0xffffffff),
+              decoration: const BoxDecoration(
+                color: Color(0xffffffff),
               ),
             ),
           ),
           Transform.translate(
-            offset: Offset(30.0, 68.0),
-            child:
-                // Adobe XD layer: 'Content' (group)
-                Stack(
+            offset: const Offset(30.0, 68.0),
+            child: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: Offset(0.0, 32.0),
-                  child:
-                      // Adobe XD layer: 'Near you' (group)
-                      Stack(
+                  offset: const Offset(0.0, 32.0),
+                  child: Stack(
                     children: <Widget>[
                       Transform.translate(
-                        offset: Offset(0.0, -0.67),
-                        child:
-                            // Adobe XD layer: 'Near you' (text)
-                            Text(
+                        offset: const Offset(0.0, -0.67),
+                        child: const Text(
                           'Near you',
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 16,
-                            color: const Color(0xff373737),
+                            color: Color(0xff373737),
                             height: 1.25,
                           ),
                           textAlign: TextAlign.left,
@@ -75,22 +68,20 @@ class Home extends StatelessWidget {
                       ),
                       // Restaurant Grid
                       Transform.translate(
-                        offset: Offset(0.0, 42.0),
+                        offset: const Offset(0.0, 42.0),
                         child: RestaurantGrid(restuarants, selectRestaurant),
                       )
                     ],
                   ),
                 ),
                 Transform.translate(
-                  offset: Offset(0.0, -5.0),
-                  child:
-                      // Adobe XD layer: 'Food & Delivery' (text)
-                      Text(
+                  offset: const Offset(0.0, -5.0),
+                  child: const Text(
                     'Restaurants',
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 24,
-                      color: const Color(0xff000000),
+                      color: Color(0xff000000),
                       height: 1.5,
                     ),
                     textAlign: TextAlign.left,

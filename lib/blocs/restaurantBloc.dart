@@ -8,45 +8,44 @@ import 'package:iamplus_flutter/data/repo.dart';
 import 'package:iamplus_flutter/data/restaurant.dart';
 
 class RestaurantBloc implements Bloc {
-  
-  final List<Restaurant> _restaurants = Repo().restaurants;
-  final String userKey = Repo().userKey;
-  final geoLoc.Location _location = new geoLoc.Location();
-
-  final _restaurantListController = StreamController<List<Restaurant>>();
-  Stream<List<Restaurant>> get restaurantListStream => _restaurantListController.stream;
-
-  final _selectedRestaurantController = StreamController<Restaurant>();
-  Stream<Restaurant> get selectedRestaurantStream => _selectedRestaurantController.stream;
-
   //Constructor
   RestaurantBloc() {
-    Timer(Duration(milliseconds: 100), getRestaurants);
-    Timer(Duration(milliseconds: 100), (){_selectedRestaurantController.sink.add(Repo().selectedRestaurant);});
+    Timer(const Duration(milliseconds: 100), getRestaurants);
+    Timer(const Duration(milliseconds: 100), (){_selectedRestaurantController.sink.add(Repo().selectedRestaurant);});
   }
 
-  void getRestaurants() async {
-    final _locationData = await _getLocation();
-    final lat = _locationData.latitude;
-    final lon = _locationData.longitude;
+  final List<Restaurant> _restaurants = Repo().restaurants;
+  final String userKey = Repo().userKey;
+  final geoLoc.Location _location = geoLoc.Location();
+
+  final StreamController<List<Restaurant>> _restaurantListController = StreamController<List<Restaurant>>();
+  Stream<List<Restaurant>> get restaurantListStream => _restaurantListController.stream;
+
+  final StreamController<Restaurant> _selectedRestaurantController = StreamController<Restaurant>();
+  Stream<Restaurant> get selectedRestaurantStream => _selectedRestaurantController.stream;
+
+  Future<void> getRestaurants() async {
+    final geoLoc.LocationData _locationData = await _getLocation();
+    final double lat = _locationData.latitude;
+    final double lon = _locationData.longitude;
     
     //zomato url with lat lon params
-    var url = "https://developers.zomato.com/api/v2.1/geocode?"
-      + "lat=" + lat.toString()
-      + "&lon=" + lon.toString();
+    String url = 'https://developers.zomato.com/api/v2.1/geocode?'
+      + 'lat=' + lat.toString()
+      + '&lon=' + lon.toString();
     //send http get request to zomato
-    final response = await http.get(url, headers: {"user-key": userKey});
+    final http.Response response = await http.get(url, headers: {'user-key': userKey});
     if(response.statusCode == 200) {
       _restaurants.clear();
-      final jsonBody = jsonDecode(response.body);
-      jsonBody["nearby_restaurants"].forEach((val) => 
-        _restaurants.add(Restaurant.fromJson(val["restaurant"]))
+      final Map<String, dynamic> jsonBody = jsonDecode(response.body) as Map<String, dynamic>;
+      jsonBody['nearby_restaurants'].forEach((dynamic val) => 
+        _restaurants.add(Restaurant.fromJson(val['restaurant'] as Map<String, dynamic>))
       );
     }
     _restaurantListController.sink.add(_restaurants);
   }
 
-  void selectRestaurant(Restaurant restaurant) async {
+  Future<void> selectRestaurant(Restaurant restaurant) async {
     Repo().selectedRestaurant = restaurant;
     _selectedRestaurantController.sink.add(Repo().selectedRestaurant);
   }

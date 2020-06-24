@@ -3,27 +3,23 @@ import 'package:iamplus_flutter/blocs/bloc.dart';
 
 // A provider class that stores an implementation of bloc
 class BlocProvider<T extends Bloc> extends StatefulWidget {
-  final Widget child;
-  final T bloc;
-
   const BlocProvider({Key key, @required this.bloc, @required this.child})
     : super(key: key);
 
   // "of" method allows descendant in the widget tree to access the BlocProvider
   static T of<T extends Bloc>(BuildContext context) {
-    final type = _providerType<BlocProvider<T>>();
-    final BlocProvider<T> provider = context.ancestorWidgetOfExactType(type);
+    final BlocProvider<T> provider = context.findAncestorWidgetOfExactType();
     return provider.bloc;
   }
 
-  // Allows reference to the generic type
-  static Type _providerType<T>() => T;
+  final Widget child;
+  final T bloc;
 
   @override
   State createState() => _BlocProviderState();
 }
 
-class _BlocProviderState extends State<BlocProvider> {
+class _BlocProviderState extends State<BlocProvider<Bloc>> {
   @override
   Widget build(BuildContext context) => widget.child;
 

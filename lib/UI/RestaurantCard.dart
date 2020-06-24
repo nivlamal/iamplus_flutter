@@ -3,26 +3,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iamplus_flutter/data/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
+  const RestaurantCard(this._restaurant);
   final Restaurant _restaurant;
-  RestaurantCard(this._restaurant);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
         children: <Widget>[
           Transform.translate(
-            offset: Offset(16.0, 8.15),
-            child:
-                // Adobe XD layer: 'Rectangle' (shape)
-                Container(
+            offset: const Offset(16.0, 8.15),
+            child: Container(
               width: 168.0,
               height: 190.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.0),
                 color: const Color(0xffffffff),
                 boxShadow: [
-                  BoxShadow(
-                    color: const Color(0x1a000000),
+                  const BoxShadow(
+                    color: Color(0x1a000000),
                     offset: Offset(8, 16),
                     blurRadius: 32,
                   ),
@@ -31,34 +29,28 @@ class RestaurantCard extends StatelessWidget {
             ),
           ),
           Transform.translate(
-            offset: Offset(136.0, 16.0),
-            child:
-                // Adobe XD layer: 'Like' (group)
-                Stack(
+            offset: const Offset(136.0, 16.0),
+            child: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: Offset(0.0, 0.15),
-                  child:
-                      // Adobe XD layer: 'Rectangle' (shape)
-                      Container(
+                  offset: const Offset(0.0, 0.15),
+                  child: Container(
                     width: 40.0,
                     height: 32.0,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(2.0),
                         topRight: Radius.circular(20.0),
                         bottomRight: Radius.circular(2.0),
                         bottomLeft: Radius.circular(20.0),
                       ),
-                      color: const Color(0xff99adff),
+                      color: Color(0xff99adff),
                     ),
                   ),
                 ),
                 Transform.translate(
-                  offset: Offset(8.0, 4.32),
-                  child:
-                      // Adobe XD layer: 'Heart' (group)
-                      Stack(
+                  offset: const Offset(8.0, 4.32),
+                  child: Stack(
                     children: <Widget>[
                       // Adobe XD layer: 'Shape' (shape)
                       SvgPicture.string(
@@ -71,20 +63,17 @@ class RestaurantCard extends StatelessWidget {
               ],
             ),
           ),
-          // Adobe XD layer: 'twenty20_3998e4bc-f…' (group)
           Stack(
             children: <Widget>[
               Transform.translate(
-                offset: Offset(0.0, 0.15),
-                child:
-                    // Adobe XD layer: 'Mask' (shape)
-                    Container(
+                offset: const Offset(0.0, 0.15),
+                child: Container(
                   width: 105.0,
                   height: 105.0,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
                         Radius.elliptical(52.5, 52.5)),
-                    color: const Color(0xffd8d8d8),
+                    color: Color(0xffd8d8d8),
                   ),
                 ),
               ),
@@ -92,28 +81,24 @@ class RestaurantCard extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   Transform.translate(
-                    offset: Offset(0.0, 0.15),
-                    child:
-                        // Adobe XD layer: 'Mask' (shape)
-                        Container(
+                    offset: const Offset(0.0, 0.15),
+                    child: Container(
                       width: 105.0,
                       height: 105.0,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
                             Radius.elliptical(52.5, 52.5)),
-                        color: const Color(0xffd8d8d8),
+                        color: Color(0xffd8d8d8),
                       ),
                     ),
                   ),
                   Transform.translate(
-                    offset: Offset(0.0, 0.15),
-                    child:
-                        // Adobe XD layer: 'twenty20_3998e4bc-f…' (shape)
-                        Container(
+                    offset: const Offset(0.0, 0.15),
+                    child: Container(
                       width: 105.0,
                       height: 105.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                             Radius.elliptical(52.5, 52.5)),
                         image: DecorationImage(
                           image: NetworkImage(_restaurant.thumb),
@@ -127,55 +112,49 @@ class RestaurantCard extends StatelessWidget {
             ],
           ),
           Transform.translate(
-            offset: Offset(35.0, 113.0),
-            child:
-                // Adobe XD layer: 'Infor' (group)
-                Stack(
+            offset: const Offset(35.0, 113.0),
+            child: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: Offset(0.0, 43.15),
-                  child:
-                      // Adobe XD layer: 'Fresh hamburger with' (text)
-                      SizedBox(
+                  offset: const Offset(0.0, 43.15),
+                  child: SizedBox(
                     width: 131.0,
                     height: 26.0,
                     child: Text(
                       _restaurant.cuisines,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Montserrat-Regular',
                         fontSize: 10,
-                        color: const Color(0xff656565),
+                        color: Color(0xff656565),
                       ),
                       textAlign: TextAlign.left,
                     ),
                   ),
                 ),
                 Transform.translate(
-                  offset: Offset(0.0, 0.15),
-                  child:
-                      // Adobe XD layer: '$30.00' (text)
-                      Text(
+                  offset: const Offset(0.0, 0.15),
+                  child: Text(
                     _restaurant.userRating.aggregateRating,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Montserrat-SemiBold',
                       fontSize: 14,
-                      color: const Color(0xff365eff),
+                      color: Color(0xff365eff),
                     ),
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Transform.translate(
-                  offset: Offset(0.0, 20.15),
+                  offset: const Offset(0.0, 20.15),
                   child:
                     SizedBox(
                       width: 131,
                       child: Text( // Adobe XD layer: 'Chicken Hamburger' (text)
                         _restaurant.name,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 14,
-                          color: const Color(0xff373737),
+                          color: Color(0xff373737),
                         ),
                         textAlign: TextAlign.left,
                       ),

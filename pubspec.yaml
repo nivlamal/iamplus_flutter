@@ -20,6 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # for auto resizing of text
+  auto_size_text: ^2.1.0
+
   # location package to get gps coordinates
   location: ^3.0.0
 

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iamplus_flutter/blocs/bloc_provider.dart';
@@ -71,114 +72,112 @@ class Details extends StatelessWidget {
             ],
           ),
         ),
+        // Restaurant thumb
         Transform.translate(
           offset: Offset((width - 245) / 2, 80),
-          child:_buildImage(245, restaurant?.thumb ?? "")
+          child:_buildImage(245, restaurant?.thumb ?? '')
         ),
-        Transform.translate(
-          offset: const Offset(32.0, 418),
-          child:
-              // Adobe XD layer: 'Fresh hamburger with' (text)
-              SizedBox(
-            width: 215.0,
-            height: 20.0,
-            child: Text(
-              restaurant?.cuisines ?? '',
-              style: const TextStyle(
-                fontFamily: 'Montserrat-Regular',
-                fontSize: 12,
-                color: Color(0xff656565),
-                height: 1.5,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Transform.translate(
-          offset: const Offset(32.0, 451),
-          child: // Adobe XD layer: 'Address' (text)
-            const SizedBox(
-              height: 20.0,
-              child: Text(
-                'Address:',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 12,
-                  color: Color(0xff656565),
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-        ),
-        Transform.translate(
-          offset: const Offset(32.0, 471),
-          child: SizedBox(
-              height: 20.0,
-              child: Text(
-                restaurant?.location?.address ?? '',
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 12,
-                  color: Color(0xff656565),
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-        ),
-        Transform.translate(
-          offset: const Offset(32.0, 504.0),
-          child: const SizedBox(
-            width: 75.0,
-            height: 20.0,
-            child: Text(
-              'Ratings:',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                color: Color(0xff656565),
-                fontWeight: FontWeight.w700,
-                height: 1.5,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Transform.translate(
-          offset: const Offset(32.0, 524.0),
-          child:
-              // Adobe XD layer: 'stars' (text)
-              SizedBox(
-            width: 150.0,
-            height: 20.0,
-            child: Text(
-              restaurant?.userRating?.votes.toString() + ' Ratings - ' +
-              restaurant?.userRating?.aggregateRating.toString() + ' stars',
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                color: Color(0xff656565),
-                height: 1.5,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
+        // Details text
         Transform.translate(
           offset: const Offset(32.0, 373),
-          child:
-              // Adobe XD layer: 'Chicken Hamburger' (text)
-              Text(
-            restaurant?.name ?? '',
-            style: const TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 24,
-              color: Color(0xff373737),
-            ),
-            textAlign: TextAlign.left,
-          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Restaurant name
+              Container(
+                width: width - 64,
+                child: AutoSizeText(
+                  restaurant?.name ?? '',
+                  maxLines:1,
+                  style: const TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 42,
+                    color: Color(0xff373737),
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Restaurant cuisine
+              Container(
+                height: height * 0.033,
+                child: AutoSizeText(
+                  restaurant?.cuisines ?? '',
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat-Regular',
+                    fontSize: 24,
+                    color: Color(0xff656565),
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Restaurant address heading
+              Container(
+                height: height * 0.033,
+                margin: const EdgeInsets.only(
+                  top: 13.0,
+                ),
+                child: const AutoSizeText(
+                  'Address:',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 24,
+                    color: Color(0xff656565),
+                    fontWeight: FontWeight.w700,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Restaurant address body
+              Container(
+                height: height * 0.033,
+                child: AutoSizeText(
+                  restaurant?.location?.address ?? '',
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 24,
+                    color: Color(0xff656565),
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Restaurant ratings heading
+              Container(
+                height: height * 0.033,
+                margin: const EdgeInsets.only(
+                  top: 13.0,
+                ),
+                child: const AutoSizeText(
+                  'Ratings:',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 24,
+                    color: Color(0xff656565),
+                    fontWeight: FontWeight.w700,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Restaurant ratings body
+              Container(
+                height: height * 0.033,
+                child: AutoSizeText(
+                  restaurant?.userRating?.votes.toString() + ' Ratings - ' +
+                  restaurant?.userRating?.aggregateRating.toString() + ' stars',
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 24,
+                    color: Color(0xff656565),
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ],
+          )
         ),
         Transform.translate(
           offset: Offset(width - 88, 16.0),

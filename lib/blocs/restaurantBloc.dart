@@ -30,9 +30,9 @@ class RestaurantBloc implements Bloc {
     final double lon = _locationData.longitude;
     
     //zomato url with lat lon params
-    String url = 'https://developers.zomato.com/api/v2.1/geocode?'
-      + 'lat=' + lat.toString()
-      + '&lon=' + lon.toString();
+    final String url = 'https://developers.zomato.com/api/v2.1/geocode?' 'lat=' 
+      + lat.toString() + '&lon='
+      + lon.toString();
     //send http get request to zomato
     final http.Response response = await http.get(url, headers: {'user-key': userKey});
     if(response.statusCode == 200) {
